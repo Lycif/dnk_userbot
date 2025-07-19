@@ -6,20 +6,19 @@ import requests
 api_id = int(os.environ["API_ID"])
 api_hash = os.environ["API_HASH"]
 session_string = os.environ["SESSION_STRING"]
-bot_token = "8158303139:AAHligZP-v29MPZE3YLuUj0wwsM1Cw8lp_w"
-bot_username = "genereytposters_bot"
+bot_token = os.environ["BOT_TOKEN"]
+
+channel_ids = [-1001002714330182]  # сюда добавляешь ID нужных каналов
 
 client = TelegramClient(StringSession(session_string), api_id, api_hash)
 
-@client.on(events.NewMessage(chats=[1002714330182]))
+@client.on(events.NewMessage(chats=channel_ids))
 async def handler(event):
-    text = event.raw_text
-    print("Поймал сообщение:", text)
-    
+    message_text = event.raw_text
     requests.post(
         f"https://api.telegram.org/bot{bot_token}/sendMessage",
-        data={"chat_id": "@"+bot_username, "text": text}
+        data={"chat_id": "@genereytposters_bot", "text": message_text}
     )
 
-with client:
-    client.run_until_disconnected()
+client.start()
+client.run_until_disconnected()
