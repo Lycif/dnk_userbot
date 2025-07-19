@@ -8,8 +8,7 @@ api_hash = os.environ["API_HASH"]
 session_string = os.environ["SESSION_STRING"]
 bot_token = os.environ["BOT_TOKEN"]
 
-channel_ids = [-1001002714330182]  # сюда добавляешь ID нужных каналов
-
+channel_ids = [-1001002714330182] 
 client = TelegramClient(StringSession(session_string), api_id, api_hash)
 
 @client.on(events.NewMessage(chats=channel_ids))
