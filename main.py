@@ -8,7 +8,9 @@ api_hash = os.environ["API_HASH"]
 session_string = os.environ["SESSION_STRING"]
 bot_token = os.environ["BOT_TOKEN"]
 
-channel_ids = [-1001002714330182] 
+channel_ids = [-1001002714330182]
+target_chat_id = 7031349149
+
 client = TelegramClient(StringSession(session_string), api_id, api_hash)
 
 @client.on(events.NewMessage(chats=channel_ids))
@@ -16,7 +18,7 @@ async def handler(event):
     message_text = event.raw_text
     requests.post(
         f"https://api.telegram.org/bot{bot_token}/sendMessage",
-        data={"chat_id": "@genereytposters_bot", "text": message_text}
+        data={"chat_id": target_chat_id, "text": message_text}
     )
 
 client.start()
